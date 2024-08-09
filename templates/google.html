@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+	<div class= "button1" id="toggleSidebar">☰</div>
+	    <div class="sidebar" id="sidebar">
+	        <h2>导航</h2>
+	        <ul>
+	            <li><a href="{{ url_for('index') }}">首页</a></li>
+	            <li><a href="{{ url_for('meta_page') }}">Meta Data</a></li>
+	            <!-- 可以添加更多的导航链接 -->
+	        </ul>
+	        <form action="{{ url_for('logout') }}" method="post" class="custom-button">
+	            <button type="submit">Log Out</button>
+	        </form>
+	    </div>
+    <h1>{{ table_name }} Data</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                {% for column in data[0].keys() %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    {% for value in row.values() %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<!--    <div class = "button-box">
+        <button onclick="location.href='{{ url_for('index') }}'">Go to Shopify Data</button>
+        <button onclick="location.href='{{ url_for('meta_page') }}'">Go to Meta Data</button>
+        <button onclick="location.href='{{ url_for('google_page') }}'">Go to Google Data</button>
+    </div> -->
+	<script>
+	    document.getElementById('toggleSidebar').addEventListener('click', function() {
+	        var sidebar = document.getElementById('sidebar');
+	        var body = document.body;
+	        
+	        if (sidebar.classList.contains('hidden')) {
+	            sidebar.classList.remove('hidden');
+	            body.classList.remove('sidebar-hidden');
+	        } else {
+	            sidebar.classList.add('hidden');
+	            body.classList.add('sidebar-hidden');
+	        }
+	    });
+	</script>
+</body>
+</html>

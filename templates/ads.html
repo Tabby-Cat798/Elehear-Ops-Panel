@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elehear Ops-Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="button1" id="toggleSidebar">☰</div>
+    <div class="sidebar" id="sidebar">
+        <h2>导航</h2>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Shopify</a></li>
+            <li><a href="{{ url_for('ads_page') }}">Ads</a></li>
+            <!-- 可以添加更多的导航链接 -->
+        </ul>
+		
+        <form action="{{ url_for('export_ads_data') }}" method="get" class="custom-button1" id="export-form">
+            <input type="hidden" name="month" id="export-month">
+            <button type="submit">Export Data</button>
+        </form>
+		<form action="{{ url_for('logout') }}" method="post" class="custom-button2">
+		    <button type="submit">Log Out</button>
+		</form>
+		
+    </div>
+	
+    <div class="content">
+        <div style="text-align: center; margin-bottom: 0px;">
+            <label for="month-select">选择月份：</label>
+            <select id="month-select">
+                <option value="all">All</option>
+                <option value="2024-06">2024-06</option>
+                <option value="2024-07">2024-07</option>
+                <option value="2024-08">2024-08</option>
+                <option value="2024-09">2024-09</option>
+                <option value="2024-10">2024-10</option>
+                <option value="2024-11">2024-11</option>
+                <option value="2024-12">2024-12</option>
+                <!-- 根据需要添加更多选项 -->
+            </select>
+        </div>
+        <div class="tables">
+            <section style="justify-content: flex-end;">
+                <div>
+                    <h1>{{ table_name1 }} Data</h1>
+                    <table border="1">
+                        <thead>
+                            <tr id="meta-header" style="background-color: #e1eaff;">
+                                <!-- 表头将在Ajax调用中动态填充 -->
+                            </tr>
+                            <tr id="meta-sums" class="sums-row_ads">
+                                <!-- 汇总将在Ajax调用中动态填充 -->
+                            </tr>
+                        </thead>
+                        <tbody id="meta-body" style="background-color: #e1eaff;">
+                            <!-- 数据将在Ajax调用中动态填充 -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section style="justify-content: flex-start;">
+                <div>
+                    <h1>{{ table_name2 }} Data</h1>
+                    <table border="1">
+                        <thead>
+                            <tr id="google-header" style="background-color: #faf1d1;">
+                                <!-- 表头将在Ajax调用中动态填充 -->
+                            </tr>
+                            <tr id="google-sums" class="sums-row_ads">
+                                <!-- 汇总将在Ajax调用中动态填充 -->
+                            </tr>
+                        </thead>
+                        <tbody id="google-body" style="background-color: #faf1d1;">
+                            <!-- 数据将在Ajax调用中动态填充 -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+		
+    </div>
+    <div class="button-box">
+        <!-- 按钮框内容 -->
+    </div>
+    <script>
+        document.getElementById('toggleSidebar').addEventListener('click', function() {
+            var sidebar = document.getElementById('sidebar');
+            var body = document.body;
+            
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+                body.classList.remove('sidebar-hidden');
+            } else {
+                sidebar.classList.add('hidden');
+                body.classList.add('sidebar-hidden');
+            }
+        });
+
+        document.getElementById('month-select').addEventListener('change', function() {
+            var selectedMonth = this.value;
+            fetchData(selectedMonth);
+            document.getElementById('export-month').value = selectedMonth; // 更新导出表单的月份
+        });
+
+        function fetchData(month) {
+            fetch(`/get_data_by_month_ads?month=${month}`)
+                .then(response => response.json())
+                .then(data => {
+                    updateMetaTable(data.meta_data, data.meta_sums, data.meta_columns);
+                    updateGoogleTable(data.google_data, data.google_sums, data.google_columns);
+                })
+                .catch(error => console.error('Error loading the data: ', error));
+        }
+
+        function updateMetaTable(data, columnSums, columns) {
+            const tableHeader = document.getElementById('meta-header');
+            const tableSums = document.getElementById('meta-sums');
+            const tableBody = document.getElementById('meta-body');
+
+            // Clear existing data
+            tableHeader.innerHTML = '';
+            tableSums.innerHTML = '';
+            tableBody.innerHTML = '';
+
+            if (columns && columns.length > 0) {
+                // Create table header
+                columns.forEach(column => {
+                    const th = document.createElement('th');
+                    th.textContent = column;
+                    tableHeader.appendChild(th);
+                });
+
+                // Create table body
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    columns.forEach(column => {
+                        const td = document.createElement('td');
+                        // 处理日期列格式
+                        if (column === 'date') {
+                            const date = new Date(row[column]);
+                            td.textContent = date.toISOString().split('T')[0]; // 格式化为 YYYY-MM-DD
+                        } else {
+                            td.textContent = row[column];
+                        }
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+
+                // Create sums row
+                columnSums.forEach((sum, index) => {
+                    const td = document.createElement('td');
+                    td.textContent = sum;
+                    tableSums.appendChild(td);
+                });
+            } else {
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.setAttribute('colspan', '100%');
+                td.textContent = 'No records found for the selected period.';
+                tr.appendChild(td);
+                tableBody.appendChild(tr);
+            }
+        }
+
+        function updateGoogleTable(data, columnSums, columns) {
+            const tableHeader = document.getElementById('google-header');
+            const tableSums = document.getElementById('google-sums');
+            const tableBody = document.getElementById('google-body');
+
+            // Clear existing data
+            tableHeader.innerHTML = '';
+            tableSums.innerHTML = '';
+            tableBody.innerHTML = '';
+
+            if (columns && columns.length > 0) {
+                // Create table header
+                columns.forEach(column => {
+                    const th = document.createElement('th');
+                    th.textContent = column;
+                    tableHeader.appendChild(th);
+                });
+
+                // Create table body
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    columns.forEach(column => {
+                        const td = document.createElement('td');
+                        td.textContent = row[column];
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+
+                // Create sums row
+                columnSums.slice(1).forEach((sum, index) => {  // Skip the first element (month)
+                    const td = document.createElement('td');
+                    td.textContent = sum;
+                    tableSums.appendChild(td);
+                });
+            } else {
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.setAttribute('colspan', '100%');
+                td.textContent = 'No records found for the selected period.';
+                tr.appendChild(td);
+                tableBody.appendChild(tr);
+            }
+        }
+
+        // 初始加载所有数据
+        document.getElementById('export-month').value = 'all';
+        fetchData('all');
+    </script>
+</body>
+</html>
