@@ -7,6 +7,31 @@
     <title>Elehear Ops-Panel</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<style>
+		@media (max-width: 1440px){
+			.shopify-tittle{
+				margin-left: 400px; 
+				width: 200px;
+			}
+		}
+		@media (max-width: 768px){
+			.shopify-tittle{
+				margin-left: 350px; 
+				width: 200px;
+			}
+		}
+		@media (min-width: 768px) and (max-width: 1025px){
+			.shopify-tittle{
+				margin-left: 550px; 
+				width: 200px;
+			}
+		}
+		@media (max-width: 1440px){
+			.shopify-table{
+				margin-left: 400px;
+			}
+		}
+	</style>
 </head>
 <body>
     <div class="button1" id="toggleSidebar">☰</div>
@@ -25,7 +50,7 @@
 		    <button type="submit">Log Out</button>
 		</form>
     </div>
-    <h1 style="margin-top: 30px;">Shopify Data</h1>
+    <h1 class="shopify-tittle" style="margin-top: 30px;">Shopify Data</h1>
     
     <div style="text-align: center; margin-bottom: 20px;">
         <label for="month-select">选择月份：</label>
@@ -43,7 +68,7 @@
     </div>
     
     <div class="tables">
-        <table border="1">
+        <table border="1" class="shopify-table">
             <thead>
                 <tr id="table-header" style="background-color: #e3f2fd;">
                     <!-- 表头将在Ajax调用中动态填充 -->

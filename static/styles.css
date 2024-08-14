@@ -26,9 +26,10 @@ h1 {
     transition: transform 0.3s; /* 过渡效果 */
 }
 
+
 .sidebar.hidden {
     transform: translateX(-195px); /* 隐藏侧边栏但露出5px */
-}
+ } 
 
 #toggleSidebar {
     position: fixed;
@@ -80,25 +81,25 @@ body.sidebar-hidden #toggleSidebar {
     transition: margin-left 0.3s; /* 过渡效果 */
 }
 
+/* @media (max-width: 760px){
+	.content {
+	    padding: 20px;
+	    transition: margin-left 0.3s; 
+	}
+} */
+
 /* body.sidebar-hidden .content {
     margin-left: 40px; /* 侧边栏隐藏时内容部分距离左侧的距离 
 } */
 
 .tables {
     display: flex;
+	
     justify-content: center; /* 确保父容器中的内容居中对齐 */
-    /* width: calc(100% - 240px); /* 确保表格部分不被侧边栏覆盖，留出空隙 */ */
+    /* width: calc(100% - 240px); */ /* 确保表格部分不被侧边栏覆盖，留出空隙 */
     margin: 0 auto;
 }
 
-@media (max-width: 2560px) {
-    .tables {
-        display: flex;
-        justify-content: center;
-        /* width: calc(100% - 240px); */
-       margin-right: 0;
-    }
-}
 
 section {
     width: 50%; /* 每个section占50%宽度 */
@@ -109,8 +110,9 @@ section {
 table {
     border-collapse: collapse;
     border: 1px solid black;
+	
     /* width: 100%; */
-    /* max-width: 1600px; /* 限制最大宽度 */ */
+     /* max-width: 1600px; */ /* 限制最大宽度 */ */
 }
 
 th, td {
@@ -122,7 +124,8 @@ th, td {
     font-size: 14px; /* 字号大小 */
 }
 
-@media (max-width: 2560px) {
+
+@media (max-width: 767px) {
 	.custom-button1 {
 	    position: absolute; /* 绝对定位 */
 	    top: 85%; /* 距离顶部90% */
@@ -134,15 +137,77 @@ th, td {
 	    border: none;
 	    border-radius: 4px;
 	    width: 150px;
-	}
+	} 
     th, td {
-        padding: 8px;
+        padding: 5px;
         text-align: center; /* 水平居中 */
         vertical-align: middle; /* 垂直居中 */
         border: 1px solid black;
-        width: 80px; /* 固定单元格宽度 */
-        font-size: 12px; /* 字号大小 */
+        width: 50px; /* 固定单元格宽度 */
+        font-size: 10px; /* 字号大小 */
+		height: 10px;
+		white-space: nowrap; /* 禁止换行 */
     }
+
+
+	 .tables {
+	    margin-left: 170px;
+	 }
+	 .table {
+		 table-layout: fixed;
+	 }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    	.custom-button1 {
+    	    position: absolute; /* 绝对定位 */
+    	    top: 85%; /* 距离顶部90% */
+    	    left: 50%;
+    	    transform: translate(-50%, -50%); /* 使按钮居中 */
+    	    font-size: 16px;
+    	    background-color: #4CAF50;
+    	    color: white;
+    	    border: none;
+    	    border-radius: 4px;
+    	    width: 150px;
+    	}
+        th, td {
+            padding: 5px;
+            text-align: center; /* 水平居中 */
+            vertical-align: middle; /* 垂直居中 */
+            border: 1px solid black;
+            width: 80px; /* 固定单元格宽度 */
+            font-size: 12px; /* 字号大小 */
+			height: 20px;
+			white-space: nowrap; /* 禁止换行 */
+        }
+		.tables {
+		   margin-left: 40px;
+		}
+}
+@media (min-width: 1025px) and (max-width: 1920px) {
+    	.custom-button1 {
+    	    position: absolute; /* 绝对定位 */
+    	    top: 85%; /* 距离顶部90% */
+    	    left: 50%;
+    	    transform: translate(-50%, -50%); /* 使按钮居中 */
+    	    font-size: 16px;
+    	    background-color: #4CAF50;
+    	    color: white;
+    	    border: none;
+    	    border-radius: 4px;
+    	    width: 150px;
+    	}
+        th, td {
+            padding: 8px;
+            text-align: center; /* 水平居中 */
+            vertical-align: middle; /* 垂直居中 */
+            border: 1px solid black;
+            width: 80px; /* 固定单元格宽度 */
+            font-size: 12px; /* 字号大小 */
+			white-space: nowrap; /* 禁止换行 */
+        }
+		
 }
 
 /* th {
