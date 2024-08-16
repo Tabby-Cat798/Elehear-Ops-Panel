@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 db_config = {
     'user': 'api',
     'password': '123456',
-    'host': '8.217.85.94',
+    'host': '47.238.39.35',
     'port': 3306,
     'database': 'api'
 }
