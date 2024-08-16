@@ -70,14 +70,14 @@ Elehear Ops Panel是一个基于flask框架的web应用，前端使用基础的h
 
 请确保拥有shopify商店，google-ads账号, meta-ads账号，以及已获得对相关资产访问的api token，具体方法如下：
 ### Shopify
-    进入shopify账号首页，点击左侧的'Apps',进入'Develop apps'创建一个新的应用，创建时添加相关需要的权限，然后保存生成的API access token（仅可显示一次）和API key 以及API secret key，后面在相关脚本中替换；
+- 进入shopify账号首页，点击左侧的'Apps',进入'Develop apps'创建一个新的应用，创建时添加相关需要的权限，然后保存生成的API access token（仅可显示一次）和API key 以及API secret key，后面在相关脚本中替换；
 ### Meta
-    进入meta开发者账户页面，选择'My apps'，创建一个新的app，首先绑定你facebook账号具有访问权限的的业务资产组合，选择通过facebook账号来验证登录，成功创建app后在app内的产品中启用市场营销API，然后在工具中勾选ads_read权限并生成token，保存这个token在之后的相关代码中进行替换（meta的token有效期可能只有几个月，若token无故失效后可通过同样方式生成新的token）；
+- 进入meta开发者账户页面，选择'My apps'，创建一个新的app，首先绑定你facebook账号具有访问权限的的业务资产组合，选择通过facebook账号来验证登录，成功创建app后在app内的产品中启用市场营销API，然后在工具中勾选ads_read权限并生成token，保存这个token在之后的相关代码中进行替换（meta的token有效期可能只有几个月，若token无故失效后可通过同样方式生成新的token）；
 ### Google
-    google的流程较为复杂
-    1.首先进入google-ads账号首页(一定要是广告账户所属的经理账户)，在管理员设置中进入API中心（非经理账户无此选项），申请API访问权限，得到一个开发者令牌，后面在相关代码中进行替换，令牌初始权限为测试权限，无法正常使用，需要向google开发团队提交一个表单申请基本访问权限才可正常使用，审核时间大致为3-5天。
-    2.在得到权限之后访问console.cloud.google.com，新建一个项目，启用Google Ads API和Google Analytics Data API，在凭据页面创建一个适用于web client的Oauth凭据，进行具体的关于重定向url的配置；
-    3.通过 developvers.google.com/oauthplayground 工具获取refresh token，首先在右上角设置里面选择使用自己的OAuth信息，输入上面创建的Oauth凭据的id和密码，然后在左侧step1中选择要使用api请求的端点（google ads 和google analytics），添加完成后在step2中生成refresh token（Google令牌理论上是长期令牌），后面在相关代码中进行替换。
+- google的流程较为复杂
+- 首先进入google-ads账号首页(一定要是广告账户所属的经理账户)，在管理员设置中进入API中心（非经理账户无此选项），申请API访问权限，得到一个开发者令牌，后面在相关代码中进行替换，令牌初始权限为测试权限，无法正常使用，需要向google开发团队提交一个表单申请基本访问权限才可正常使用，审核时间大致为3-5天。
+- 在得到权限之后访问console.cloud.google.com，新建一个项目，启用Google Ads API和Google Analytics Data API，在凭据页面创建一个适用于web client的Oauth凭据，进行具体的关于重定向url的配置；
+- 通过 developvers.google.com/oauthplayground 工具获取refresh token，首先在右上角设置里面选择使用自己的OAuth信息，输入上面创建的Oauth凭据的id和密码，然后在左侧step1中选择要使用api请求的端点（google ads 和google analytics），添加完成后在step2中生成refresh token（Google令牌理论上是长期令牌），后面在相关代码中进行替换。
 
 通过Git Clone或下载源代码的方式将本项目克隆到服务器项目目录中：
 ```sh
