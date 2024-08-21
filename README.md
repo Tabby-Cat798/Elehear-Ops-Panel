@@ -3,10 +3,11 @@ title: "Elehear Ops Panel"
 ---
 # Elehear Ops Panel
 ## 简介
-Elehear Ops Panel是一个基于flask框架的web应用，前端使用基础的html+css+javascript框架，后端一部分是通过单独的定时脚本使用shopify api, google-ads api, meta-ads api调取产品销售数据以及广告转化数据，将数据存储到MySQL数据库，再由Flask的后端函数直接从数据库调取数据到前端，用于分析广告转化率，此项目为Elehear运营部内部数据面板。
+Elehear Ops Panel是一个基于Flask框架的Web应用，前端使用基础的html+css+javascript框架，后端首先是通过单独的定时脚本使用shopify api, google-ads api, meta-ads api调取产品销售数据以及广告转化数据，将数据存储到MySQL数据库，再由Flask的后端函数直接从数据库调取数据到前端，用于分析广告转化率，此项目为Elehear运营部内部数据面板。
 ## 目录
 - [简介](#简介)
 - [特性](#特性)
+- [预览](#预览)
 - [数据说明](#数据说明)
 - [数据更新说明](#数据更新说明)
 - [部署](#部署)
@@ -31,6 +32,14 @@ Elehear Ops Panel是一个基于flask框架的web应用，前端使用基础的h
     用户信息使用md5加密存储在数据库。
 - ### 版本控制：
     使用gitlab和github分别进行对公司仓库和个人仓库的项目代码同步。
+## 预览
+登录页：
+![login](./readme_picture/login.png)  
+首页：
+![index](./readme_picture/index.png)  
+广告数据页：
+![ads](./readme_picture/ads.png)
+
 ## 数据说明
 ### **Shopify**
 1. ***total_sales*** : shopify商店当日销售总金额(按用户实际支付金额计算)，不包括以下产品名的订单；
@@ -56,7 +65,7 @@ Elehear Ops Panel是一个基于flask框架的web应用，前端使用基础的h
     'Single-layer Closed Ear Domes/Caps for ELEHEAR Alpha Series'
     'Double-layer Closed Ear Domes/Caps for ELEHEAR Alpha Series'
     'Wax Cap Tool for ELEHEAR Alpha Series *4'
-    'Wireless Charger for ELEHEAR Alpha Series'
+    'Wireless Charger for ELEHEAR Alpha Series'   
     ```
 5. ***total_orders*** : shopify商店当日总订单量(以后台实际显示为准，非产品销量之和)，不包含以下产品名的订单；
     ```sh
