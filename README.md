@@ -3,7 +3,7 @@ title: "Elehear Ops Panel"
 ---
 # Elehear Ops Panel
 ## 简介
-Elehear Ops Panel是一个基于flask框架的web应用，前端使用基础的html+css+javascript框架，通过shopify api, google-ads api, meta-ads api调取产品销售数据以及广告转化数据,用于分析广告转化率，此项目为Elehear运营部内部数据面板。
+Elehear Ops Panel是一个基于flask框架的web应用，前端使用基础的html+css+javascript框架，后端一部分是通过单独的定时脚本使用shopify api, google-ads api, meta-ads api调取产品销售数据以及广告转化数据，将数据存储到MySQL数据库，再由Flask的后端函数直接从数据库调取数据到前端，用于分析广告转化率，此项目为Elehear运营部内部数据面板。
 ## 目录
 - [简介](#简介)
 - [特性](#特性)
@@ -11,7 +11,26 @@ Elehear Ops Panel是一个基于flask框架的web应用，前端使用基础的h
 - [数据更新说明](#数据更新说明)
 - [部署](#部署)
 ## 特性
-- 
+- ### 响应式设计：
+    通过css进行媒体查询，实现了项目在手机端，平板端和桌面端的适配。
+- ### API集成：
+    使用GraphQL查询语言通过Shopify API获取数据；
+    
+    使用RESTful API与Facebook Ads API，Google Ads API，Google Analytics API进行集成，获取数据。
+- ### 性能优化：
+    使用Redis对数据进行缓存，减少对数据库的操作；
+
+    通过AJAX异步加载数据，减少页面加载时间，提升用户体验。
+- ### 数据更新：
+    在服务器端使用crontab工具进行定时任务的配置，用于更新数据库数据；
+
+    使用Redis管理任务锁，防止重复执行定时任务。
+- ### 安全：
+    使用Flask的"session"和"secret_key"功能管理会话，保护用户数据；
+
+    用户信息使用md5加密存储在数据库。
+- ### 版本控制：
+    使用gitlab和github分别进行对公司仓库和个人仓库的项目代码同步。
 ## 数据说明
 ### **Shopify**
 1. ***total_sales*** : shopify商店当日销售总金额(按用户实际支付金额计算)，不包括以下产品名的订单；
@@ -147,7 +166,7 @@ mysql> describe meta;
 55 11 * * * /usr/bin/python3 /www/wwwroot/panel/shopify_daily3_task_new.py
 45 11 * * * /usr/bin/python3 /www/wwwroot/panel/meta_daily3_task.py
 ```
-替换app.py文件中的数据库信息，若在以上步骤中更改了所获取的数据及数据名，请在相关函数中中同步修改，然后确保一切信息无误后，在服务器中使用以下脚本运行：
+替换app.py文件中的数据库信息，若在以上步骤中更改了所获取的数据及数据名，请在相关函数中同步修改，然后确保一切信息无误后，在服务器中使用以下脚本运行：
 ```sh
 nohup gunicorn -w 4 -b 0.0.0.0:5000 app:app &
 ```
