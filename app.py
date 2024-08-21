@@ -3,6 +3,7 @@ import mysql.connector
 from mysql.connector import Error
 import pandas as pd
 import io
+import bcrypt
 
 
 app = Flask(__name__)
@@ -10,15 +11,12 @@ app = Flask(__name__)
 
 app.secret_key = 'elevoc_ops'
 
-users = {
-    'elehear': 'ops'
-}
 
 # 替换为您的MySQL数据库连接信息
 db_config = {
     'user': 'api',
     'password': '123456',
-    'host': '8.217.85.94',
+    'host': '47.238.39.35',
     'port': 3306,
     'database': 'api'
 }
@@ -213,11 +211,19 @@ def get_data_by_month_ads():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if username in users and users[username] == password:
-            session['username'] = username
+        connection = mysql.connector.connect(**db_config)
+        cursor = connection.cursor(dictionary=True)
+        query = f"SELECT * FROM users WHERE username = %s"
+        cursor.execute(query, (username,))
+        user = cursor.fetchone()
+        cursor.close()
+        connection.close()
+        if user and bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
+            session['username'] = user['username']
             flash('You were successfully logged in')
             return redirect(url_for('index'))
         else:

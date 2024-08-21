@@ -15,21 +15,17 @@ Elehear Ops Panel是一个基于Flask框架的Web应用，前端使用基础的h
 - ### 响应式设计：
     通过css进行媒体查询，实现了项目在手机端，平板端和桌面端的适配。
 - ### API集成：
-    使用GraphQL查询语言通过Shopify API获取数据；
-    
+    使用GraphQL查询语言通过Shopify API获取数据；  
     使用RESTful API与Facebook Ads API，Google Ads API，Google Analytics API进行集成，获取数据。
 - ### 性能优化：
-    使用Redis对数据进行缓存，减少对数据库的操作；
-
+    使用Redis对数据进行缓存，减少对数据库的操作；  
     通过AJAX异步加载数据，减少页面加载时间，提升用户体验。
 - ### 数据更新：
-    在服务器端使用crontab工具进行定时任务的配置，用于更新数据库数据；
-
+    在服务器端使用crontab工具进行定时任务的配置，用于更新数据库数据；  
     使用Redis管理任务锁，防止重复执行定时任务。
 - ### 安全：
-    使用Flask的"session"和"secret_key"功能管理会话，保护用户数据；
-
-    用户信息使用md5加密存储在数据库。
+    使用Flask的"session"和"secret_key"功能管理会话，保护用户数据；  
+    用户信息使用bcrypt加密存储在数据库。
 - ### 版本控制：
     使用gitlab和github分别进行对公司仓库和个人仓库的项目代码同步。
 ## 预览
