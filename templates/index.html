@@ -40,6 +40,7 @@
         <ul>
             <li><a href="{{ url_for('index') }}">Shopify</a></li>
             <li><a href="{{ url_for('ads_page') }}">Ads</a></li>
+			<li><a href="https://github.com/Tabby-Cat798/Elehear-Ops-Panel/blob/traditional/README.md" target="_blank">README</a></li>
             <!-- 可以添加更多的导航链接 -->
         </ul>
         <form action="{{ url_for('export_shopify_data') }}" method="get" class="custom-button1" id="export-form">
@@ -52,20 +53,11 @@
     </div>
     <h1 class="shopify-tittle" style="margin-top: 30px;">Shopify Data</h1>
     
-    <div style="text-align: center; margin-bottom: 20px;">
-        <label for="month-select">选择月份：</label>
-        <select id="month-select">
-            <option value="all">All</option>
-            <option value="2024-06">2024-06</option>
-            <option value="2024-07">2024-07</option>
-            <option value="2024-08">2024-08</option>
-            <option value="2024-09">2024-09</option>
-            <option value="2024-10">2024-10</option>
-            <option value="2024-11">2024-11</option>
-            <option value="2024-12">2024-12</option>
-            <!-- 根据需要添加更多选项 -->
-        </select>
-    </div>
+	<div style="text-align: center; margin-bottom: 20px;">
+		<label for="month-select">选择月份：</label>
+		<input type="month" id="month-select">
+	</div>
+
     
     <div class="tables">
         <table border="1" class="shopify-table">
