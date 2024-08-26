@@ -11,6 +11,7 @@ Elehear Ops Panel是一个基于Flask框架的Web应用，前端使用基础的h
 - [数据说明](#数据说明)
 - [数据更新说明](#数据更新说明)
 - [部署](#部署)
+- [Q&A](#qa)
 ## 特性
 - ### 响应式设计：
     通过css进行媒体查询，实现了项目在手机端，平板端和桌面端的适配。
@@ -69,10 +70,19 @@ Elehear Ops Panel是一个基于Flask框架的Web应用，前端使用基础的h
     ```
 6. ***ads_spend*** : 广告投入总金额；
 7. ***ads_income*** : 投广销售额；
-8. ***ads_amount*** : 广告转化量(通过广告销售的产品数量)，四舍五入，具体定义以Google Ads后台为准；![1](./readme_picture/google_ads_amount.png)
+8. ***ads_amount*** : 广告转化量总和(通过广告销售的产品数量)
 9. ***ROAS*** : $\frac{\text{投广销售额}}{\text{广告投入总金额}}$ ；
 10. ***total_traffic*** : 通过各渠道访问官网的流量数据，数据来源: Google Analytics；
 11. ***conversion_rate*** : $\frac{\text{总订单量}}{\text{总流量}}$ ；
+### **Ads**
+1. ***clicks*** : 广告点击量；
+2. ***CPM*** : $\frac{\text{总广告费用}}{\text{总展示次数}}$ * 1000 (由meta平台直接提供)；
+3. ***CPC*** : $\frac{\text{广告投入金额}}{\text{广告点击量}}$ ；
+4. ***amount*** : 广告转化量(通过广告销售的产品数量)，四舍五入，具体定义以各平台后台为准；![1](./readme_picture/google_ads_amount.png)
+5. ***CPA*** : $\frac{\text{广告投入金额}}{\text{广告转化量}}$ ；
+6. ***spend*** : 广告投入金额；
+7. ***income*** : 投广销售额；
+8. ***ROAS*** : $\frac{\text{投广销售额}}{\text{广告投入金额}}$ ；
 ## 数据更新说明
 1.每十分钟运行一次脚本(三个平台各一个)，使用api直接访问平台，更新数据库中当日数据（纽约时间）；
 ```sh
@@ -178,4 +188,26 @@ nohup gunicorn -w 4 -b 0.0.0.0:5000 app:app &
 
 若能使用服务器ip+端口号(5000)成功访问到面板，则项目成功部署！
 
+## Q&A
+> Q：数据不更新了怎么办？  
+
+ 大概率是某个平台的API token过期或者账号的权限被移除，一般情况下除了meta平台，其余平台的token都是长期有效，若出现问题请联系项目开发者，其中meta平台的解决方法：  
+1. Meta:
+https://developers.facebook.com/apps/?show_reminder=true  
+登录meta开发者平台，使用Facebook账号登录，账号：elehear.develop@gmail.com 密码：elehear2024dev （非邮箱密码Elehear2024dev）  
+选择App，点击左侧 产品 > 市场营销API > 工具，勾选ads_read权限，然后点击get token得到新的token；  
+在以下代码文件中更换"access_token"： 
+```sh
+meta_mysql.py
+meta_daily_task.py
+meta_daily3_task.py
+```
+> Q：数据与平台实际提供的不匹配怎么办？
+
+ 因为某些平台的数据会出现回溯，针对这种现象我们为每个平台都部署了一个每日回溯前三日数据的脚本(具体解释请查阅[数据更新说明](#数据更新说明))，若出现问题的数据已经超出了回溯脚本所覆盖的时间范围，请在设置好目标时间的前提下手动执行相应的mysql脚本，更新相应数据，并适当增加对应回溯脚本覆盖的时间(由于考虑到对数据库的并发操作，不建议覆盖时间过长)；
+
+> Q：Shopify商店发布了新的产品或者配件该怎么办？
+
+ 首先更新Mysql数据表中相应的名称，然后在shopify的三个脚本中分别进行修改，在其中的process_shopify_data()函数和store_sales_data()函数中修改为最新的产品或配件tittle(当前tittle请查阅[数据说明](#shopify))，随后先运行shopify_mysql.py更新过去日期中的数据，然后重启app.py即可；
+ 
 
