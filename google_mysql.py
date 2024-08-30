@@ -7,22 +7,22 @@ from mysql.connector import Error
 from datetime import datetime, timedelta
 
 db_config = {
-    'user': 'api',
-    'password': '123456',
-    'host': '47.238.39.35',
+    'user': '******',
+    'password': '******',
+    'host': '******',
     'port': 3306,
-    'database': 'api'
+    'database': '******'
 }
 # 设置查询日期为全局变量
 QUERY_DATE = '2024-07-07'
 
 # 替换为你的信息
-CLIENT_ID = '569002121483-ug18a0cdvbutaiepco9dkidbvmpe3mn9.apps.googleusercontent.com'
-CLIENT_SECRET = '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'
-REFRESH_TOKEN = '1//04R6NlPMD5cP6CgYIARAAGAQSNwF-L9IrV2q27PjZlTxNXy3Lpl84oU5hZzyWyFF-sZ4W-deWzYC0ymZREoJ3jrTyNgzPpV5yCwY'
-DEVELOPER_TOKEN = 'badist6aJKKtiaEMy-nlOA'
-LOGIN_CUSTOMER_ID = '4181460386'
-TARGET_CUSTOMER_ID = '5542937178'  # 目标子账户ID
+CLIENT_ID = '********************************************************************'
+CLIENT_SECRET = '********************************************************************'
+REFRESH_TOKEN = '********************************************************************'
+DEVELOPER_TOKEN = '********************************************************************'
+LOGIN_CUSTOMER_ID = '********************************************************************'
+TARGET_CUSTOMER_ID = '********************************************************************'  # 目标子账户ID
 
 
 def refresh_access_token(refresh_token):

@@ -10,26 +10,26 @@ from mysql.connector import Error
 
 # MySQL 数据库连接信息
 db_config = {
-    'user': 'api',
-    'password': '123456',
-    'host': '8.217.85.94',
+    'user': '******',
+    'password': '******',
+    'host': '******',
     'port': 3306,
-    'database': 'api'
+    'database': '******'
 }
 
 # Shopify API配置
-ACCESS_TOKEN = "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"
-API_KEY = "06c7b3414081441a3b83c15cc78ac421"
-PASSWORD = "fe5a9f46c6d60bcc781af8059bcda5e7"
-SHOP_NAME = "elehear-store"
+ACCESS_TOKEN = "********************************************************************"
+API_KEY = "********************************************************************"
+PASSWORD = "********************************************************************"
+SHOP_NAME = "********************************************************************"
 GRAPHQL_URL = f'https://{API_KEY}:{PASSWORD}@{SHOP_NAME}.myshopify.com/admin/api/2023-07/graphql.json'
 
 # Google OAuth 2.0配置
-CLIENT_ID = '569002121483-ug18a0cdvbutaiepco9dkidbvmpe3mn9.apps.googleusercontent.com'
-CLIENT_SECRET = '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'
-REFRESH_TOKEN = '1//04R6NlPMD5cP6CgYIARAAGAQSNwF-L9IrV2q27PjZlTxNXy3Lpl84oU5hZzyWyFF-sZ4W-deWzYC0ymZREoJ3jrTyNgzPpV5yCwY'
-TOKEN_URI = 'https://oauth2.googleapis.com/token'
-PROPERTY_ID = '402334651'  # 替换为你的GA4 Property ID
+CLIENT_ID = '********************************************************************'
+CLIENT_SECRET = '********************************************************************'
+REFRESH_TOKEN = '********************************************************************'
+TOKEN_URI = '********************************************************************'
+PROPERTY_ID = '********************************************************************'  # 替换为你的GA4 Property ID
 
 # 设定美国东部时区
 us_eastern_tz = timezone('America/New_York')

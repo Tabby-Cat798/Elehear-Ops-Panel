@@ -14,11 +14,11 @@ app.secret_key = 'elevoc_ops'
 
 # 替换为您的MySQL数据库连接信息
 db_config = {
-    'user': 'api',
-    'password': '123456',
-    'host': '47.238.39.35',
+    'user': '******',
+    'password': '******',
+    'host': '******',
     'port': 3306,
-    'database': 'api'
+    'database': '******'
 }
 
 

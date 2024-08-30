@@ -9,16 +9,16 @@ import time
 
 # 替换为您的MySQL数据库连接信息
 db_config = {
-    'user': 'api',
-    'password': '123456',
-    'host': '8.217.85.94',
+    'user': '******',
+    'password': '******',
+    'host': '******',
     'port': 3306,
-    'database': 'api'
+    'database': '******'
 }
 
-access_token = 'EAAMq3IRpPlsBO3zceqWxfEEU8XfMccLDuUN3VLWNTfABZA22yY1gqkQpCY5FPjAxWaDdkolC1wBqSGOL4xlLY7yig0b25Xy0E8RoXGXZCeGK5nnQiq06ZCe2tdXVZCCo9J4MIaUWhzaUsNZCOKct8T35ZBsZBvzNJeFVZAy70r7S9SzCH0foNOGoxr2F0YsFqnC8UVZAwJfmGLNB1xdRHHDiM2s3Q'
+access_token = '********************************************************************'
 # 你的广告账户ID
-ad_account_id = 'act_249116311346514'
+ad_account_id = '********************************************************************'
 # 定义API端点
 url = f"https://graph.facebook.com/v20.0/{ad_account_id}/insights"
 

@@ -194,7 +194,7 @@ nohup gunicorn -w 4 -b 0.0.0.0:5000 app:app &
  大概率是某个平台的API token过期或者账号的权限被移除，一般情况下除了meta平台，其余平台的token都是长期有效，若出现问题请联系项目开发者，其中meta平台的解决方法：  
 1. Meta:
 https://developers.facebook.com/apps/?show_reminder=true  
-登录meta开发者平台，使用Facebook账号登录，账号：elehear.develop@gmail.com 密码：elehear2024dev （非邮箱密码Elehear2024dev）  
+登录meta开发者平台，使用Facebook账号登录
 选择App，点击左侧 产品 > 市场营销API > 工具，勾选ads_read权限，然后点击get token得到新的token；  
 在以下代码文件中更换"access_token"： 
 ```sh
